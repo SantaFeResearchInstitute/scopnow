@@ -1,0 +1,1 @@
+delete from urination_levels where serial_no = /* urinationLevels.serialNo */'123' && sensor_type = /* urinationLevels.sensorType */'123';

@@ -1,0 +1,1 @@
+UPDATE sensors SET update_date = NOW() WHERE sensor_type = /* dto.sensorType */'000' && serial_no = /* dto.serialNo */'serialNo'; 

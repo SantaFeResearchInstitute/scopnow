@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  <!-- http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-logging.html -->
+
+  <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+  <include resource="logback/appender/logback-file.xml"/>
+  <root level="INFO">
+    <appender-ref ref="APPLICATION_LOG_FILE"/>
+  </root>
+
+</configuration>

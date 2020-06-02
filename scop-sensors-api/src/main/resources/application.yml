@@ -1,0 +1,42 @@
+# Spring Core
+spring:
+  datasource:
+    driver-class-name:
+    url:
+    username:
+    password:
+  messages:
+    basename:
+    encoding:
+  jackson:
+    dateFormat:
+    time-zone:
+  main:
+    web-application-type:
+# doma2
+doma:
+  dialect:
+server:
+  servlet:
+    application-display-name:
+  env:
+    server-id: 
+    server-name:
+    process-id:
+  setting:
+    issuer:
+# Security 
+setting:
+  issuer:
+security:
+  jwt:
+    issuser:
+    secret-key:
+    expire-milli-sec:
+notification:
+  mobile-push:
+    app-arn: 
+    apns-env:
+# system
+system:
+  url:

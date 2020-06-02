@@ -1,0 +1,1 @@
+delete from urination_level_histories where serial_no = /* serialNo */'1'

@@ -1,0 +1,95 @@
+buildscript {
+	ext {
+		springBootVersion = '2.1.0.BUILD-SNAPSHOT'
+		domaVersion = '2.16.1'
+	}
+	repositories {
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+		maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'war'
+
+group = 'jp.co.scop'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 8
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+	maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+}
+
+
+dependencies {
+	// 認証・認可(SpringSecurity)
+	compile('org.springframework.boot:spring-boot-starter-security')
+	compile('com.auth0:java-jwt:3.7.0')
+
+	// AOP
+	compile('org.springframework.boot:spring-boot-starter-aop')
+	
+	// MVC
+	compile('org.springframework.boot:spring-boot-starter-web')
+
+	// 永続化(Doma2)
+	compile('org.springframework.boot:spring-boot-starter-jdbc')
+	// compile('org.seasar.doma.boot:doma-spring-boot-starter:1.1.1-SNAPSHOT')
+	compile(group: 'org.seasar.doma.boot', name: 'doma-spring-boot-starter', version: '1.1.1')
+	// domaのdaoimpl自動生成するために利用している。Gradle5以降で必要になる。
+	annotationProcessor ("org.seasar.doma:doma:${domaVersion}")
+	
+	// Database
+	//runtime('com.h2database:h2')
+	compile('mysql:mysql-connector-java:8.0.14')			// ローカルDockerMySQL用のライブラリ
+	compile('org.mariadb.jdbc:mariadb-java-client:2.4.0')	// 本番・STGAurora用のライブラリ
+	
+	// AWS
+	compile('com.amazonaws:aws-java-sdk-sns:1.11.505')
+	// https://mvnrepository.com/artifact/com.amazonaws/aws-lambda-java-core
+	compile group: 'com.amazonaws', name: 'aws-lambda-java-core', version: '1.2.0'
+	
+	// https://mvnrepository.com/artifact/com.amazonaws/aws-lambda-java-events
+	compile group: 'com.amazonaws', name: 'aws-lambda-java-events', version: '2.2.6'
+	
+	// ユーティリティ
+	compile 'com.google.guava:guava:27.0.1-jre'
+
+	// jwtライブラリ
+	// https://mvnrepository.com/artifact/commons-codec/commons-codec
+	compile group: 'commons-codec', name: 'commons-codec', version: '1.4'
+	compile files('lib/java-jwt-3.3.0.jar')
+	
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'
+	
+	// https://mvnrepository.com/artifact/org.json/json
+	compile group: 'org.json', name: 'json', version: '20190722'
+	
+	// テスト
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile('org.hamcrest:hamcrest-all:1.3')
+//	testCompile('org.springframework.security:spring-security-test')
+
+}
+
+// Doma2のビルドエラー解消のためタスクの順序づけする。
+// 通常：processResourceタスクと、compileJavaタスクは並列実行
+// 変更：processResourceタスク->compileJavaタスク
+// Doma2は、compileJavaタスク実行時に、META-INF/・・・/xxxDao/xxx.sqlファイルが存在しないとエラーになるため、
+// processResourceタスク（リソースファイルの移動）を先に行う。
+processResources.destinationDir = compileJava.destinationDir
+compileJava.dependsOn processResources
+
+apply from:'eclipse.gradle'
