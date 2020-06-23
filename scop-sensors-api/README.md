@@ -1,53 +1,56 @@
-# server-apiプロジェクト
+# server-api project
 
-## Eclipseにプロジェクトインポート
-1. 任意のディレクトリにソースをgitリポジトリをクローンする
-    ```
+## Importing a project into Eclipse
+Clone the source to a directory of your choice in a git repository
+    ````
     git clone https://xxxx.com/xxx.git
-    ```
-2. eclipseプロジェクト化を行う
-   ```
-   $ cd ${cloneしたディレクトリ}/server-api
-   $ ./gradlew eclipse
-   ```
-3. eclipseへインポート
-    1. Eclipseを開く
+    ````
+2. make an eclipse project.
+   ````
+   $ cd ${clone directory}/server-api
+   $ . /gradlew eclipse
+   ````
+3. import to eclipse
+    Open Eclipse.
     2. File>Import>Existing Projects into Workspace
-    3. ${cloneしたディレクトリ}/server-apiを選択しFinish
+    Select ${clone directory}/server-api and Finish
 
-4. domaの設定  
-domaの設定でエラーが発生するので、以下を行い解決する  
-    1. server-apiプロジェクトを右クリック＞Build Path>Configuration Build Bath
-    2. Java Build Path>Sourceタブを開く>server-api/.apt_generatedのOutput folderをEdit->bin/mainを入力し反映する。
+4. doma settings  
+An error occurs in the doma configuration, so do the following  
+    1. right-click on the server-api project > Build Path > Build Path Configuration Build Bath
+    2. open the Java Build Path>Source tab>server-api/.apt Input _generated Output folder to Edit->bin/main and press Reflection.
 
-    参考  
-    http://doma.seasar.org/faq.html#development-environment-5
+    Reference  
+    http://doma.seasar.org/faq.html#development -environment-5
 
-## 開発の進め方
-1. ソースコードを修正する
-2. jp.co.scop.Application.javaを開く
-3. 右クリック＞Run As＞Spring Boot Appで実行する
-4. ブラウザやcurlで動作確認する
-5. ソース再修正を行う（1に戻る）
+## How to develop
+Modify the source code.
+Open jp.co.scop.
+3. right-click > Run As > Spring Boot App
+4. check the operation in a browser or curl
+5. perform source redaction (back to 1)
 
-## Doma2利用方法
-Domaプラグインを導入することで、以下のようにDAOを作成することができる。
-* 参考  
-https://doma.readthedocs.io/en/stable/getting-started-eclipse/#import-template-project
+## How to use Doma2
+By introducing the Doma plug-in, it is possible to create a DAO as shown below.
+* Reference.  
+https://doma.readthedocs.io/en/stable/ getting-started-eclipse/#import-template- project
 
-* 手順
-    1. Daoインターフェースを作成する
-        ```
+* Procedure.
+    Creating Dao Interface
+        ````
         @ConfigAutowireable
         @Dao
         public interface XXXXDao {
         }
-        ```
-    1. @Select・@Insert・@Update・@Deleteのアノテーションをつけたメソッドを作成する
-        ```
+        ````
+    1. annotate @Select, @Insert, @Update, and @Delete. Create a method that you attach to
+        ````
         @Select
         List<Company> selectAll();
-        ```
-    2. Eclipseでアノテーション箇所にカーソルを合わせて右クリック＞Doma>Jump to SQL File
-    3. ファイル名を入力し(通常はデフォルトのまま)保存する
-    4. SQLファイルをカスタマイズする。
+        ````
+    2. right-click on the annotation point in Eclipse > Doma > Annotate Jump to SQL File
+    3. enter a file name (usually the default) and save it
+    4. customize the SQL file.
+
+
+Translated with www.DeepL.com/Translator (free version)
