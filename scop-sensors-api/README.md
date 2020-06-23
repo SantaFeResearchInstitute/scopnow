@@ -52,5 +52,3 @@ https://doma.readthedocs.io/en/stable/ getting-started-eclipse/#import-template-
     3. enter a file name (usually the default) and save it
     4. customize the SQL file.
 
-
-Translated with www.DeepL.com/Translator (free version)
